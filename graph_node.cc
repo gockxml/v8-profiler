@@ -17,13 +17,13 @@ void GraphNode::Initialize() {
   node_template_->SetAccessor(String::New("ptr"), GraphNode::GetPtr);
   node_template_->SetAccessor(String::New("instancesCount"), GraphNode::GetInstancesCount);
   node_template_->SetAccessor(String::New("childrenCount"), GraphNode::GetChildrenCount);
-  node_template_->SetAccessor(String::New("retainersCount"), GraphNode::GetRetainersCount);
+  //node_template_->SetAccessor(String::New("retainersCount"), GraphNode::GetRetainersCount);
   node_template_->SetAccessor(String::New("size"), GraphNode::GetSize);
   node_template_->SetAccessor(String::New("retainingPathsCount"), GraphNode::GetRetainingPathsCount);
-  node_template_->SetAccessor(String::New("dominatorNode"), GraphNode::GetDominator);
+  //node_template_->SetAccessor(String::New("dominatorNode"), GraphNode::GetDominator);
   node_template_->Set(String::New("getChild"), FunctionTemplate::New(GraphNode::GetChild));
-  node_template_->Set(String::New("retainedSize"), FunctionTemplate::New(GraphNode::GetRetainedSize));
-  node_template_->Set(String::New("getRetainer"), FunctionTemplate::New(GraphNode::GetRetainer));
+  //node_template_->Set(String::New("retainedSize"), FunctionTemplate::New(GraphNode::GetRetainedSize));
+  //node_template_->Set(String::New("getRetainer"), FunctionTemplate::New(GraphNode::GetRetainer));
   node_template_->Set(String::New("getRetainingPath"), FunctionTemplate::New(GraphNode::GetRetainingPath));
 }
 
@@ -102,6 +102,7 @@ Handle<Value> GraphNode::GetChildrenCount(Local<String> property, const Accessor
   return scope.Close(Integer::New(count));
 }
 
+/*
 Handle<Value> GraphNode::GetRetainersCount(Local<String> property, const AccessorInfo& info) {
   HandleScope scope;
   Local<Object> self = info.Holder();
@@ -109,6 +110,7 @@ Handle<Value> GraphNode::GetRetainersCount(Local<String> property, const Accesso
   int32_t count = static_cast<HeapGraphNode*>(ptr)->GetRetainersCount();
   return scope.Close(Integer::New(count));
 }
+*/
 
 Handle<Value> GraphNode::GetSize(Local<String> property, const AccessorInfo& info) {
   HandleScope scope;
@@ -132,6 +134,7 @@ Handle<Value> GraphNode::GetChild(const Arguments& args) {
   return scope.Close(GraphEdge::New(edge));
 }
 
+/*
 Handle<Value> GraphNode::GetRetainedSize(const Arguments& args) {
   HandleScope scope;
   bool exact = false;
@@ -157,7 +160,7 @@ Handle<Value> GraphNode::GetRetainer(const Arguments& args) {
   const HeapGraphEdge* edge = static_cast<HeapGraphNode*>(ptr)->GetRetainer(index);
   return scope.Close(GraphEdge::New(edge));
 }
-
+*/
 Handle<Value> GraphNode::GetRetainingPathsCount(Local<String> property, const AccessorInfo& info) {
   HandleScope scope;
   Local<Object> self = info.Holder();
@@ -179,7 +182,7 @@ Handle<Value> GraphNode::GetRetainingPath(const Arguments& args) {
   const HeapGraphPath* path = static_cast<HeapGraphNode*>(ptr)->GetRetainingPath(index);
   return scope.Close(GraphPath::New(path));
 }
-
+/*
 Handle<Value> GraphNode::GetDominator(Local<String> property, const AccessorInfo& info) {
   HandleScope scope;
   Local<Object> self = info.Holder();
@@ -187,7 +190,7 @@ Handle<Value> GraphNode::GetDominator(Local<String> property, const AccessorInfo
   const HeapGraphNode* node = static_cast<HeapGraphNode*>(ptr)->GetDominatorNode();
   return scope.Close(GraphNode::New(node));
 }
-
+*/
 Handle<Value> GraphNode::New(const HeapGraphNode* node) {
   HandleScope scope;
   
